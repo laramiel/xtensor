@@ -6,9 +6,11 @@
 * The full license is in the file LICENSE, distributed with this software. *
 ****************************************************************************/
 
-#include "gtest/gtest.h"
 #include "xtensor/xscalar.hpp"
+
+#include "gtest/gtest.h"
 #include "xtensor/xarray.hpp"
+#include "test_common_macros.hpp"
 
 namespace xt
 {
@@ -57,7 +59,7 @@ namespace xt
     TEST(xscalar, at)
     {
         xscalar<int> x(2);
-        EXPECT_ANY_THROW(x.at(0));
+        XT_EXPECT_ANY_THROW(x.at(0));
     }
 
     TEST(xscalar, dimension)

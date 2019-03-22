@@ -11,7 +11,7 @@ project(xtensor)
 
 set(XTENSOR_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-# Versionning
+# Versioning
 # ===========
 
 file(STRINGS "${XTENSOR_INCLUDE_DIR}/xtensor/xtensor_config.hpp" xtensor_version_defines
@@ -37,8 +37,8 @@ find_package(nlohmann_json 3.1.1 QUIET)
 # Optional dependencies
 # =====================
 
-OPTION(XTENSOR_USE_XSIMD "simd acceleration for xtensor" OFF)
-OPTION(XTENSOR_USE_TBB "enable parallelization using intel TBB" OFF)
+option(XTENSOR_USE_XSIMD "simd acceleration for xtensor" OFF)
+option(XTENSOR_USE_TBB "enable parallelization using intel TBB" OFF)
 
 if(XTENSOR_USE_XSIMD)
     set(xsimd_REQUIRED_VERSION 7.0.0)
@@ -126,15 +126,16 @@ target_include_directories(xtensor INTERFACE $<BUILD_INTERFACE:${XTENSOR_INCLUDE
                                              $<INSTALL_INTERFACE:include>)
 target_link_libraries(xtensor INTERFACE xtl)
 
-OPTION(XTENSOR_ENABLE_ASSERT "xtensor bound check" OFF)
-OPTION(XTENSOR_CHECK_DIMENSION "xtensor dimension check" OFF)
-OPTION(BUILD_TESTS "xtensor test suite" OFF)
-OPTION(BUILD_BENCHMARK "xtensor benchmark" OFF)
-OPTION(DOWNLOAD_GTEST "build gtest from downloaded sources" OFF)
-OPTION(DOWNLOAD_GBENCHMARK "download google benchmark and build from source" ON)
-OPTION(DEFAULT_COLUMN_MAJOR "set default layout to column major" OFF)
-OPTION(DISABLE_VS2017 "disables the compilation of some test with Visual Studio 2017" OFF)
-OPTION(CPP17 "enables C++17" OFF)
+option(XTENSOR_ENABLE_ASSERT "xtensor bound check" OFF)
+option(XTENSOR_CHECK_DIMENSION "xtensor dimension check" OFF)
+option(BUILD_TESTS "xtensor test suite" OFF)
+option(BUILD_BENCHMARK "xtensor benchmark" OFF)
+option(DOWNLOAD_GTEST "build gtest from downloaded sources" OFF)
+option(DOWNLOAD_GBENCHMARK "download google benchmark and build from source" ON)
+option(DEFAULT_COLUMN_MAJOR "set default layout to column major" OFF)
+option(DISABLE_VS2017 "disables the compilation of some test with Visual Studio 2017" OFF)
+option(CPP17 "enables C++17" OFF)
+option(XTENSOR_DISABLE_EXCEPTIONS "Disable C++ exceptions" OFF)
 
 if(DOWNLOAD_GTEST OR GTEST_SRC_DIR)
     set(BUILD_TESTS ON)

@@ -7,11 +7,12 @@
 * The full license is in the file LICENSE, distributed with this software. *
 ****************************************************************************/
 
-#include "gtest/gtest.h"
-
-#include "xtensor/xoptional_assembly.hpp"
 #include "xtensor/xmasked_view.hpp"
+
+#include "gtest/gtest.h"
+#include "xtensor/xoptional_assembly.hpp"
 #include "xtensor/xio.hpp"
+#include "test_common_macros.hpp"
 
 namespace xt
 {
@@ -86,7 +87,7 @@ namespace xt
         EXPECT_EQ(masked_data(2, 2), 9.);
 
 #ifdef XTENSOR_ENABLE_ASSERT
-        EXPECT_ANY_THROW(masked_data(3, 3));
+        XT_EXPECT_ANY_THROW(masked_data(3, 3));
 #endif
     }
 
@@ -106,7 +107,7 @@ namespace xt
         EXPECT_EQ(masked_data.at(2, 1), 8.);
         EXPECT_EQ(masked_data.at(2, 2), 9.);
 
-        EXPECT_ANY_THROW(masked_data.at(3, 3));
+        XT_EXPECT_ANY_THROW(masked_data.at(3, 3));
     }
 
     TEST(xmasked_view, unchecked)

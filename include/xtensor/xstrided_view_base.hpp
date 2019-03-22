@@ -12,11 +12,13 @@
 #include <type_traits>
 
 #include <xtl/xsequence.hpp>
+#include <xtl/xvariant.hpp>
 
 #include "xaccessible.hpp"
-#include "xtensor_forward.hpp"
 #include "xslice.hpp"
 #include "xstrides.hpp"
+#include "xtensor_config.hpp"
+#include "xtensor_forward.hpp"
 #include "xutils.hpp"
 
 namespace xt
@@ -810,7 +812,7 @@ namespace xt
                     {
                         if (has_ellipsis == true)
                         {
-                            throw std::runtime_error("Ellipsis can only appear once.");
+                            XTENSOR_THROW(std::runtime_error("Ellipsis can only appear once."));
                         }
                         has_ellipsis = true;
                     }
@@ -822,7 +824,7 @@ namespace xt
 
                 if (dimension_check < 0)
                 {
-                    throw std::runtime_error("Too many slices for view.");
+                    XTENSOR_THROW(std::runtime_error("Too many slices for view."));
                 }
 
                 if (has_ellipsis)

@@ -13,6 +13,9 @@
 #define XTENSOR_VERSION_MINOR 20
 #define XTENSOR_VERSION_PATCH 1
 
+#include <cstdio>
+#include <cstdlib>
+
 // DETECT 3.6 <= clang < 3.8 for compiler bug workaround.
 #ifdef __clang__
     #if __clang_major__ == 3 && __clang_minor__ < 8
@@ -78,6 +81,24 @@
 #ifndef XTENSOR_DEFAULT_TRAVERSAL
 #define XTENSOR_DEFAULT_TRAVERSAL ::xt::layout_type::row_major
 #endif
+
+#if (defined(__cpp_exceptions) || defined(__EXCEPTIONS) || defined(_CPPUNWIND)) && !defined(XTENSOR_NO_EXCEPTIONS)
+// Exceptions are enabled.
+#define XTENSOR_THROW(exception)
+#else
+// Exceptions are disabled.
+#define XTENSOR_NO_EXCEPTIONS
+
+inline void xtensor_abort(const char* msg) {
+    std::fprintf(stderr, "%s\n", msg);
+    std::abort();
+}
+
+#define XTENSOR_THROW(exception) xtensor_abort(__FILE__)
+
+
+#endif
+
 
 #ifdef IN_DOXYGEN
 namespace xtl

@@ -15,6 +15,7 @@
 
 #include "xexception.hpp"
 #include "xshape.hpp"
+#include "xtensor_config.hpp"
 #include "xtensor_forward.hpp"
 
 namespace xt
@@ -88,7 +89,7 @@ namespace xt
     struct check_strides_overlap;
 
     /**********************************
-     * check bounds, without throwing *
+     * check bounds, without XTENSOR_THROW(ng )*
      **********************************/
 
     template <class S, class... Args>
@@ -448,7 +449,7 @@ namespace xt
     {
         if (l != layout_type::row_major && l != layout_type::column_major)
         {
-            throw std::runtime_error("unravel_index: dynamic layout not supported");
+            XTENSOR_THROW(std::runtime_error("unravel_index: dynamic layout not supported"));
         }
         return detail::unravel_noexcept(index, strides, l);
     }
@@ -507,7 +508,7 @@ namespace xt
 
         if (output_index < input_index)
         {
-            throw_broadcast_error(output, input);
+            XTENSOR_THROW(broadcast_error(output, input));
         }
         for (; input_index != 0; --input_index, --output_index)
         {
@@ -532,10 +533,10 @@ namespace xt
                 trivial_broadcast = false;
             }
             // Last case: input and output must have the same value, else
-            // shape are not compatible and an exception is thrown
+            // shape are not compatible and an exception is XTENSOR_THROW)(
             else if (static_cast<value_type>(input[input_index - 1]) != output[output_index - 1])
             {
-                throw_broadcast_error(output, input);
+                XTENSOR_THROW(broadcast_error(output, input));
             }
         }
         return trivial_broadcast;

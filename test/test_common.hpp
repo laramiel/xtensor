@@ -9,8 +9,11 @@
 #ifndef TEST_COMMON_HPP
 #define TEST_COMMON_HPP
 
+#include "gtest/gtest.h"
 #include "xtensor/xlayout.hpp"
 #include "xtensor/xmanipulation.hpp"
+#include "xtensor/xtensor_config.hpp"
+#include "test_common_macros.hpp"
 
 namespace xt
 {
@@ -239,7 +242,7 @@ namespace xt
 
             shape = rm.m_shape;
             shape.front() += 123;
-            EXPECT_THROW(vec.reshape(shape), std::runtime_error);
+            XT_EXPECT_THROW(vec.reshape(shape), std::runtime_error);
         }
     }
 
@@ -329,10 +332,10 @@ namespace xt
             row_major_result<C> rm;
             vec.reshape(rm.shape(), layout_type::row_major);
 
-            EXPECT_THROW(transpose(vec, {1, 1, 0}, check_policy::full()), transpose_error);
-            EXPECT_THROW(transpose(vec, {1, 0, 2, 3}, check_policy::full()), transpose_error);
-            EXPECT_THROW(transpose(vec, {1, 2}, check_policy::full()), transpose_error);
-            EXPECT_THROW(transpose(vec, {3, 0, 1}, check_policy::full()), transpose_error);
+            XT_EXPECT_THROW(transpose(vec, {1, 1, 0}, check_policy::full()), transpose_error);
+            XT_EXPECT_THROW(transpose(vec, {1, 0, 2, 3}, check_policy::full()), transpose_error);
+            XT_EXPECT_THROW(transpose(vec, {1, 2}, check_policy::full()), transpose_error);
+            XT_EXPECT_THROW(transpose(vec, {3, 0, 1}, check_policy::full()), transpose_error);
         }
     }
 
@@ -369,7 +372,7 @@ namespace xt
     void test_bound_check(V& vec)
     {
 #ifdef XTENSOR_ENABLE_ASSERT
-        EXPECT_ANY_THROW(vec(10, 10, 10));
+        XT_EXPECT_ANY_THROW(vec(10, 10, 10));
 #else
         (void)vec;
 #endif
@@ -378,8 +381,8 @@ namespace xt
     template <class V>
     void test_access_check(V& vec)
     {
-        EXPECT_ANY_THROW(vec.at(10, 10, 10));
-        EXPECT_ANY_THROW(vec.at(0, 0, 0, 0, 0, 0));
+        XT_EXPECT_ANY_THROW(vec.at(10, 10, 10));
+        XT_EXPECT_ANY_THROW(vec.at(0, 0, 0, 0, 0, 0));
     }
 
     template <class V, class C = dynamic_shape<std::size_t>>
@@ -677,7 +680,7 @@ namespace xt
         {
             SCOPED_TRACE("incompatible shapes");
             shape_type s4 = {2, 1, 3, 2};
-            EXPECT_THROW(vec.broadcast_shape(s4), broadcast_error);
+            XT_EXPECT_THROW(vec.broadcast_shape(s4), broadcast_error);
         }
     }
 

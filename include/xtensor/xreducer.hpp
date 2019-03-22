@@ -31,6 +31,7 @@
 #include "xgenerator.hpp"
 #include "xiterable.hpp"
 #include "xreducer.hpp"
+#include "xtensor_config.hpp"
 #include "xutils.hpp"
 
 namespace xt
@@ -252,11 +253,11 @@ namespace xt
 
         if (!std::is_sorted(axes.cbegin(), axes.cend()))
         {
-            throw std::runtime_error("Reducing axes should be sorted");
+            XTENSOR_THROW(std::runtime_error("Reducing axes should be sorted"));
         }
         if (axes.size() != 0 && axes[axes.size() - 1] > e.dimension() - 1)
         {
-            throw std::runtime_error("Axis " + std::to_string(axes[axes.size() - 1]) + " out of bounds for reduction.");
+            XTENSOR_THROW(std::runtime_error("Axis " + std::to_string(axes[axes.size() - 1]) + " out of bounds for reduction."));
         }
 
         detail::shape_computation<options_t>(result_shape, result, e, axes);
@@ -330,7 +331,7 @@ namespace xt
         }
         else
         {
-            throw std::runtime_error("Layout not supported in immediate reduction.");
+            XTENSOR_THROW(std::runtime_error("Layout not supported in immediate reduction."));
         }
 
         xindex temp_idx(iter_shape.size());
@@ -1139,11 +1140,11 @@ namespace xt
     {
         if (!std::is_sorted(m_axes.cbegin(), m_axes.cend()))
         {
-            throw std::runtime_error("Reducing axes should be sorted");
+            XTENSOR_THROW(std::runtime_error("Reducing axes should be sorted"));
         }
         if (m_axes.size() != 0 && m_axes[m_axes.size() - 1] > m_e.dimension() - 1)
         {
-            throw std::runtime_error("Axis " + std::to_string(m_axes[m_axes.size() - 1]) + " out of bounds for reduction.");
+            XTENSOR_THROW(std::runtime_error("Axis " + std::to_string(m_axes[m_axes.size() - 1]) + " out of bounds for reduction."));
         }
 
         if (!typename O::keep_dims())

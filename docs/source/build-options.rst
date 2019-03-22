@@ -47,6 +47,8 @@ requirements):
 - ``XTENOR_USE_TBB``: enables parallel assignment loop. This requires that you have you have tbb_ installed
   on your system.
 
+- ``XTENSOR_DISABLE_EXCEPTIONS``: disables c++ exceptions.
+
 Build and optimization
 ----------------------
 

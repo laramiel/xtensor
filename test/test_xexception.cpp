@@ -10,14 +10,24 @@
 #define XTENSOR_ENABLE_ASSERT
 #endif
 
+#include "xtensor/xexception.hpp"
+
 #include <string>
 
 #include "gtest/gtest.h"
-#include "xtensor/xexception.hpp"
+#include "test_common_macros.hpp"
 
 namespace xt
 {
-    TEST(xexception, assert)
+    TEST(xexception, macros)
+    {
+        XT_EXPECT_THROW(XTENSOR_ASSERT_MSG(false, "Intentional error"), std::runtime_error);
+        XT_EXPECT_THROW(XTENSOR_PRECONDITION(false, "Intentional error"), std::runtime_error);
+    }
+
+#if !defined(XTENSOR_NO_EXCEPTIONS)
+
+    TEST(xexception, exceptions)
     {
         try
         {
@@ -42,4 +52,6 @@ namespace xt
             EXPECT_TRUE(0 == expected.compare(message.substr(0, expected.size())));
         }
     }
+#endif
+
 }  // namespace xt
