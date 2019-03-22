@@ -16,6 +16,9 @@
 #include <cstdio>
 #include <cstdlib>
 
+#include <cstdio>
+#include <cstdlib>
+
 // DETECT 3.6 <= clang < 3.8 for compiler bug workaround.
 #ifdef __clang__
     #if __clang_major__ == 3 && __clang_minor__ < 8
@@ -97,7 +100,6 @@ inline void xtensor_abort(const char* msg) {
 #define XTENSOR_THROW(exception) xtensor_abort(__FILE__)
 
 #endif
-
 
 #ifdef IN_DOXYGEN
 namespace xtl
