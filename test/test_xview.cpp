@@ -6,10 +6,11 @@
 * The full license is in the file LICENSE, distributed with this software. *
 ****************************************************************************/
 
+#include "xtensor/xview.hpp"
+
 #include <algorithm>
 
 #include "gtest/gtest.h"
-
 #include "xtensor/xarray.hpp"
 #include "xtensor/xbuilder.hpp"
 #include "xtensor/xfixed.hpp"
@@ -17,8 +18,9 @@
 #include "xtensor/xstrided_view.hpp"
 #include "xtensor/xmanipulation.hpp"
 #include "xtensor/xtensor.hpp"
-#include "xtensor/xview.hpp"
 #include "xtensor/xrandom.hpp"
+#include "test_common_macros.hpp"
+
 
 namespace xt
 {
@@ -71,8 +73,8 @@ namespace xt
         EXPECT_EQ(a(1, 1), view1(0));
         EXPECT_EQ(a(1, 2), view1(1));
         EXPECT_EQ(size_t(1), view1.dimension());
-        EXPECT_ANY_THROW(view1.at(10));
-        EXPECT_ANY_THROW(view1.at(0, 0));
+        XT_EXPECT_ANY_THROW(view1.at(10));
+        XT_EXPECT_ANY_THROW(view1.at(0, 0));
 
         auto view0 = view(a, 0, range(0, 3));
         EXPECT_EQ(a(0, 0), view0(0));
@@ -245,8 +247,8 @@ namespace xt
         EXPECT_EQ(a(1, 0, 1), view1(0, 1));
         EXPECT_EQ(a(1, 1, 0), view1(1, 0));
         EXPECT_EQ(a(1, 1, 1), view1(1, 1));
-        EXPECT_ANY_THROW(view1.at(10, 10));
-        EXPECT_ANY_THROW(view1.at(0, 0, 0));
+        XT_EXPECT_ANY_THROW(view1.at(10, 10));
+        XT_EXPECT_ANY_THROW(view1.at(0, 0, 0));
 
         std::array<std::size_t, 2> idx = {1, 1};
         EXPECT_EQ(a(1, 1, 1), view1.element(idx.cbegin(), idx.cend()));
@@ -833,10 +835,10 @@ namespace xt
 
         EXPECT_FALSE(broadcastable(v.shape(), b.shape()));
         EXPECT_FALSE(broadcastable(b.shape(), v.shape()));
-        EXPECT_THROW(assert_compatible_shape(b, v), broadcast_error);
-        EXPECT_THROW(assert_compatible_shape(v, b), broadcast_error);
-        EXPECT_THROW(v = b, broadcast_error);
-        EXPECT_THROW(noalias(v) = b, broadcast_error);
+        XT_EXPECT_THROW(assert_compatible_shape(b, v), broadcast_error);
+        XT_EXPECT_THROW(assert_compatible_shape(v, b), broadcast_error);
+        XT_EXPECT_THROW(v = b, broadcast_error);
+        XT_EXPECT_THROW(noalias(v) = b, broadcast_error);
     }
 
     TEST(xview, strides)

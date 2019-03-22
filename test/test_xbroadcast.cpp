@@ -6,9 +6,11 @@
 * The full license is in the file LICENSE, distributed with this software. *
 ****************************************************************************/
 
-#include "gtest/gtest.h"
 #include "xtensor/xbroadcast.hpp"
+
+#include "gtest/gtest.h"
 #include "xtensor/xarray.hpp"
+#include "test_common_macros.hpp"
 
 namespace xt
 {
@@ -23,8 +25,8 @@ namespace xt
         ASSERT_EQ(4.0, m1_broadcast(0, 1, 0));
         ASSERT_EQ(5.0, m1_broadcast(0, 1, 1));
         ASSERT_EQ(m1_broadcast.layout(), m1.layout());
-        EXPECT_ANY_THROW(m1_broadcast.at(0, 0, 0, 0));
-        EXPECT_ANY_THROW(m1_broadcast.at(10, 10, 10));
+        XT_EXPECT_ANY_THROW(m1_broadcast.at(0, 0, 0, 0));
+        XT_EXPECT_ANY_THROW(m1_broadcast.at(10, 10, 10));
 
         auto shape = std::vector<std::size_t>{1, 2, 3};
         auto m1_broadcast2 = broadcast(m1, shape);

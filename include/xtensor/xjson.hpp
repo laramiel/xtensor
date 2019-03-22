@@ -16,6 +16,7 @@
 #include <nlohmann/json.hpp>
 
 #include "xstrided_view.hpp"
+#include "xtensor_config.hpp"
 
 namespace xt
 {
@@ -62,6 +63,17 @@ namespace xt
                     slices.pop_back();
                 }
             }
+        }
+
+        template <class D>
+        inline void from_json_assign_impl(D& dest, const nlohmann::json& j) {
+            dest = j;
+        }
+        inline void from_json_assign_impl(std::string& dest, const nlohmann::json& j) {
+            // When using nlohmann::json, std::string assignment can be ambiguous,
+            // so overload resolution will find this function and use assign()
+            // rather than operator=
+            dest.assign(j);
         }
 
         template <class D>
@@ -171,7 +183,7 @@ namespace xt
         // In the case of a view, we check the size of the container.
         if (!std::equal(s.cbegin(), s.cend(), e.shape().cbegin()))
         {
-            throw std::runtime_error("Shape mismatch when deserializing JSON to view");
+            XTENSOR_THROW(std::runtime_error("Shape mismatch when deserializing JSON to view"));
         }
 
         auto sv = xstrided_slice_vector();

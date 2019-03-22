@@ -27,8 +27,9 @@
 #include "xiterable.hpp"
 #include "xsemantic.hpp"
 #include "xslice.hpp"
-#include "xtensor_forward.hpp"
 #include "xtensor.hpp"
+#include "xtensor_config.hpp"
+#include "xtensor_forward.hpp"
 #include "xview_utils.hpp"
 
 
@@ -1852,7 +1853,7 @@ namespace xt
         }
         else
         {
-            throw std::runtime_error("Iteration only allowed in row or column major.");
+            XTENSOR_THROW(std::runtime_error("Iteration only allowed in row or column major."));
         }
     }
 

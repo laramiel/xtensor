@@ -6,6 +6,8 @@
 * The full license is in the file LICENSE, distributed with this software. *
 ****************************************************************************/
 
+#include "xtensor/xreducer.hpp"
+
 #include "gtest/gtest.h"
 #include "xtensor/xarray.hpp"
 #include "xtensor/xtensor.hpp"
@@ -13,9 +15,11 @@
 #include "xtensor/xfixed.hpp"
 #include "xtensor/xbuilder.hpp"
 #include "xtensor/xmath.hpp"
-#include "xtensor/xreducer.hpp"
 #include "xtensor/xview.hpp"
 #include "xtensor/xmanipulation.hpp"
+#include "xtensor/xio.hpp"
+#include "test_common_macros.hpp"
+
 #if (defined(__GNUC__) && !defined(__clang__))
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
@@ -25,7 +29,6 @@
 #include "xtensor/xrandom.hpp"
 #endif
 
-#include "xtensor/xio.hpp"
 
 namespace xt
 {
@@ -74,10 +77,10 @@ namespace xt
     TEST(xreducer, errors)
     {
         xt::xarray<int> a = {{1, 2, 3}, {4, 5, 6}};
-        EXPECT_THROW(xt::sum(a, {1, 0}), std::runtime_error);
-        EXPECT_THROW(xt::sum(a, {0, 2}), std::runtime_error);
-        EXPECT_THROW(xt::sum(a, {1, 0}, evaluation_strategy::immediate), std::runtime_error);
-        EXPECT_THROW(xt::sum(a, {0, 2}, evaluation_strategy::immediate), std::runtime_error);
+        XT_EXPECT_THROW(xt::sum(a, {1, 0}), std::runtime_error);
+        XT_EXPECT_THROW(xt::sum(a, {0, 2}), std::runtime_error);
+        XT_EXPECT_THROW(xt::sum(a, {1, 0}, evaluation_strategy::immediate()), std::runtime_error);
+        XT_EXPECT_THROW(xt::sum(a, {0, 2}, evaluation_strategy::immediate()), std::runtime_error);
     }
 
     TEST(xreducer, shape)
@@ -116,8 +119,8 @@ namespace xt
         xreducer_features features;
         EXPECT_EQ(12, features.m_red.at(0, 0, 0));
         EXPECT_EQ(24, features.m_red.at(1, 1, 1));
-        EXPECT_ANY_THROW(features.m_red.at(10, 10, 10));
-        EXPECT_ANY_THROW(features.m_red.at(0, 0, 0, 0));
+        XT_EXPECT_ANY_THROW(features.m_red.at(10, 10, 10));
+        XT_EXPECT_ANY_THROW(features.m_red.at(0, 0, 0, 0));
     }
 
     TEST(xreducer, iterator)

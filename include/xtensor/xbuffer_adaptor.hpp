@@ -18,6 +18,7 @@
 #include <xtl/xclosure.hpp>
 
 #include "xstorage.hpp"
+#include "xtensor_config.hpp"
 
 namespace xt
 {
@@ -523,7 +524,7 @@ namespace xt
         {
             if (size != m_size)
             {
-                throw std::runtime_error("xbuffer_storage not resizable");
+                XTENSOR_THROW(std::runtime_error("xbuffer_storage not resizable"));
             }
         }
 
@@ -681,7 +682,7 @@ namespace xt
         {
             if (m_size != size)
             {
-                throw std::runtime_error("xbuffer_storage not resizable");
+                XTENSOR_THROW(std::runtime_error("xbuffer_storage not resizable"));
             }
         }
 

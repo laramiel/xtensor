@@ -6,12 +6,13 @@
 * The full license is in the file LICENSE, distributed with this software. *
 ****************************************************************************/
 
+#include "xtensor/xdynamic_view.hpp"
+
 #include "gtest/gtest.h"
 #include "xtensor/xarray.hpp"
 #include "xtensor/xbuilder.hpp"
 #include "xtensor/xio.hpp"
 #include "xtensor/xnoalias.hpp"
-#include "xtensor/xdynamic_view.hpp"
 #include "xtensor/xtensor.hpp"
 #include "xtensor/xrandom.hpp"
 

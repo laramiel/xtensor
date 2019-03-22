@@ -13,8 +13,9 @@
 #ifndef XTENSOR_HISTOGRAM_HPP
 #define XTENSOR_HISTOGRAM_HPP
 
-#include "xtensor.hpp"
 #include "xsort.hpp"
+#include "xtensor.hpp"
+#include "xtensor_config.hpp"
 
 namespace xt
 {
@@ -403,8 +404,8 @@ namespace xt
 
         if (left_right[0] < input_value_type(0))
         {
-            throw std::runtime_error(
-                "Data argument for bincount can only contain positive integers!");
+            XTENSOR_THROW(std::runtime_error(
+                "Data argument for bincount can only contain positive integers!"));
         }
 
         xt::xtensor<result_value_type, 1> res = xt::zeros<result_value_type>(

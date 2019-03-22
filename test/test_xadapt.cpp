@@ -6,8 +6,9 @@
 * The full license is in the file LICENSE, distributed with this software. *
 ****************************************************************************/
 
-#include "gtest/gtest.h"
 #include "xtensor/xadapt.hpp"
+
+#include "gtest/gtest.h"
 #include "xtensor/xstrides.hpp"
 
 namespace xt

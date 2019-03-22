@@ -25,6 +25,7 @@
 #include "xscalar.hpp"
 #include "xstrides.hpp"
 #include "xutils.hpp"
+#include "xtensor_config.hpp"
 
 namespace xt
 {
@@ -274,7 +275,7 @@ namespace xt
     {
         if (s.size() < m_e.dimension())
         {
-            throw xt::broadcast_error("Broadcast shape has fewer elements than original expression.");
+            XTENSOR_THROW(xt::broadcast_error("Broadcast shape has fewer elements than original expression."));
         }
         xt::resize_container(m_shape, s.size());
         std::copy(s.begin(), s.end(), m_shape.begin());

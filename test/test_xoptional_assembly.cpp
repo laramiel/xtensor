@@ -6,13 +6,14 @@
 * The full license is in the file LICENSE, distributed with this software. *
 ****************************************************************************/
 
-#include "gtest/gtest.h"
-
-#include "xtensor/xarray.hpp"
-#include "xtensor/xio.hpp"
 #include "xtensor/xoptional_assembly.hpp"
 
+#include "gtest/gtest.h"
+#include "xtensor/xarray.hpp"
+#include "xtensor/xio.hpp"
+
 #include "test_common.hpp"
+#include "test_common_macros.hpp"
 
 namespace xt
 {
@@ -243,7 +244,7 @@ namespace xt
         EXPECT_EQ(a.at(0, 1), opt(2, false));
         EXPECT_EQ(a.at(1, 0), opt(3, false));
         EXPECT_EQ(a.at(1, 1), opt(4, true));
-        EXPECT_ANY_THROW(a.at(2, 2));
+        XT_EXPECT_ANY_THROW(a.at(2, 2));
     }
 
     TEST(xoptional_assembly, element)
@@ -299,7 +300,7 @@ namespace xt
         {
             SCOPED_TRACE("incompatible shapes");
             shape_type s4 = {2, 1, 3, 2};
-            EXPECT_THROW(vec.broadcast_shape(s4), broadcast_error);
+            XT_EXPECT_THROW(vec.broadcast_shape(s4), broadcast_error);
         }
 
         {

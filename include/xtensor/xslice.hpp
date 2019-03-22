@@ -17,6 +17,7 @@
 #include <xtl/xtype_traits.hpp>
 
 #include "xstorage.hpp"
+#include "xtensor_config.hpp"
 #include "xutils.hpp"
 
 #ifndef XTENSOR_CONSTEXPR
@@ -1396,7 +1397,7 @@ namespace xt
         }
         else
         {
-            throw std::runtime_error("Index i (" + std::to_string(i) + ") not in indices of islice.");
+            XTENSOR_THROW(std::runtime_error("Index i (" + std::to_string(i) + ") not in indices of islice."));
         }
     }
 

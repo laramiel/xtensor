@@ -9,10 +9,10 @@
 #include "gtest/gtest.h"
 #include "xtensor/xarray.hpp"
 #include "xtensor/xview.hpp"
-#include "test_common.hpp"
 #include "xtensor/xtensor.hpp"
 #include "xtensor/xrandom.hpp"
 #include "xtensor/xfixed.hpp"
+#include "test_common.hpp"
 
 namespace xt
 {
@@ -104,7 +104,7 @@ namespace xt
     {
         xt::xarray<double> arr1{ { 1.0, 2.0, 3.0 } };
         xt::xarray<double> arr2{ 5.0, 6.0, 7.0, 99.0 };
-        EXPECT_ANY_THROW(xt::xarray<double> res = arr1 * arr2);
+        XT_EXPECT_ANY_THROW(xt::xarray<double> res = arr1 * arr2);
     }
 
     TEST(xfunction, layout_type)
@@ -214,8 +214,8 @@ namespace xt
             int a = (f.m_a + f.m_a).at(i, j, k);
             int b = f.m_a.at(i, j, k) + f.m_a.at(i, j, k);
             EXPECT_EQ(a, b);
-            EXPECT_ANY_THROW((f.m_a + f.m_a).at(0, 0, 0, 0));
-            EXPECT_ANY_THROW((f.m_a + f.m_a).at(10, 10, 10));
+            XT_EXPECT_ANY_THROW((f.m_a + f.m_a).at(0, 0, 0, 0));
+            XT_EXPECT_ANY_THROW((f.m_a + f.m_a).at(10, 10, 10));
         }
 
         {
@@ -223,8 +223,8 @@ namespace xt
             int a = (f.m_a + f.m_b).at(i, j, k);
             int b = f.m_a.at(i, j, k) + f.m_b.at(i, 0, k);
             EXPECT_EQ(a, b);
-            EXPECT_ANY_THROW((f.m_a + f.m_a).at(0, 0, 0, 0));
-            EXPECT_ANY_THROW((f.m_a + f.m_a).at(10, 10, 10));
+            XT_EXPECT_ANY_THROW((f.m_a + f.m_a).at(0, 0, 0, 0));
+            XT_EXPECT_ANY_THROW((f.m_a + f.m_a).at(10, 10, 10));
         }
 
         {
@@ -232,8 +232,8 @@ namespace xt
             int a = (f.m_a + f.m_c).at(1, i, j, k);
             int b = f.m_a.at(i, j, k) + f.m_c.at(1, i, j, k);
             EXPECT_EQ(a, b);
-            EXPECT_ANY_THROW((f.m_a + f.m_a).at(0, 0, 0, 0, 0));
-            EXPECT_ANY_THROW((f.m_a + f.m_a).at(10, 10, 10, 10));
+            XT_EXPECT_ANY_THROW((f.m_a + f.m_a).at(0, 0, 0, 0, 0));
+            XT_EXPECT_ANY_THROW((f.m_a + f.m_a).at(10, 10, 10, 10));
         }
     }
 

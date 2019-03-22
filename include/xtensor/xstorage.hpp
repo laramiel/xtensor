@@ -18,6 +18,7 @@
 #include <type_traits>
 
 #include "xexception.hpp"
+#include "xtensor_config.hpp"
 #include "xtensor_simd.hpp"
 #include "xutils.hpp"
 
@@ -416,7 +417,7 @@ namespace xt
     inline auto uvector<T, A>::at(size_type i) -> reference
     {
         if(i >= size())
-            throw std::out_of_range("Out of range in uvector access");
+            XTENSOR_THROW(std::out_of_range("Out of range in uvector access"));
         return this->operator[](i);
     }
 
@@ -424,7 +425,7 @@ namespace xt
     inline auto uvector<T, A>::at(size_type i) const -> const_reference
     {
         if(i >= size())
-            throw std::out_of_range("Out of range in uvector access");
+            XTENSOR_THROW(std::out_of_range("Out of range in uvector access"));
         return this->operator[](i);
     }
 
@@ -904,7 +905,7 @@ namespace xt
     inline auto svector<T, N, A, Init>::at(size_type idx) -> reference
     {
         if(idx >= size())
-            throw std::out_of_range("Out of range in svector access");
+            XTENSOR_THROW(std::out_of_range("Out of range in svector access"));
         return this->operator[](idx);
     }
 
@@ -912,7 +913,7 @@ namespace xt
     inline auto svector<T, N, A, Init>::at(size_type idx) const -> const_reference
     {
         if(idx >= size())
-            throw std::out_of_range("Out of range in svector access");
+            XTENSOR_THROW(std::out_of_range("Out of range in svector access"));
         return this->operator[](idx);
     }
 

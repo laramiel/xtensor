@@ -21,6 +21,7 @@
 #include "xtensor_forward.hpp"
 #include "xutils.hpp"
 #include "xfunction.hpp"
+#include "xtensor_config.hpp"
 
 #if defined(XTENSOR_USE_TBB)
 #include <tbb/tbb.h>
@@ -763,7 +764,7 @@ namespace xt
         }
         else
         {
-            throw std::runtime_error("Illegal layout set (layout_type::any?).");
+            XTENSOR_THROW(std::runtime_error("Illegal layout set (layout_type::any?)."));
         }
 
         std::size_t inner_loop_size, outer_loop_size, cut;
