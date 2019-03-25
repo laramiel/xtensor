@@ -84,7 +84,7 @@
 
 #if (defined(__cpp_exceptions) || defined(__EXCEPTIONS) || defined(_CPPUNWIND)) && !defined(XTENSOR_NO_EXCEPTIONS)
 // Exceptions are enabled.
-#define XTENSOR_THROW(exception)
+#define XTENSOR_THROW(exception) do {} while (false)
 #else
 // Exceptions are disabled.
 #define XTENSOR_NO_EXCEPTIONS
