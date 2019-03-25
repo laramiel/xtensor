@@ -508,7 +508,7 @@ namespace xt
 
         if (output_index < input_index)
         {
-            XTENSOR_THROW(broadcast_error(output, input));
+            throw_broadcast_error(output, input);
         }
         for (; input_index != 0; --input_index, --output_index)
         {
@@ -536,7 +536,7 @@ namespace xt
             // shape are not compatible and an exception is thrown.
             else if (static_cast<value_type>(input[input_index - 1]) != output[output_index - 1])
             {
-                XTENSOR_THROW(broadcast_error(output, input));
+                throw_broadcast_error(output, input);
             }
         }
         return trivial_broadcast;
