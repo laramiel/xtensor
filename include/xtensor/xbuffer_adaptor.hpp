@@ -589,9 +589,10 @@ namespace xt
                     std::copy(rhs.m_data.get(), rhs.m_data.get() + rhs.m_size, tmp);
                 }
                 swap(m_data.get(), tmp);
+                const auto tmp_size = m_size;
                 m_size = rhs.m_size;
                 swap(m_allocator, al);
-                safe_destroy_deallocate(al, tmp, m_size);
+                safe_destroy_deallocate(al, tmp, tmp_size);
             }
             return *this;
         }
