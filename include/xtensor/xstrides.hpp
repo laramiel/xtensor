@@ -89,7 +89,7 @@ namespace xt
     struct check_strides_overlap;
 
     /**********************************
-     * check bounds, without XTENSOR_THROW(ng )*
+     * check bounds, without throwing *
      **********************************/
 
     template <class S, class... Args>
@@ -533,7 +533,7 @@ namespace xt
                 trivial_broadcast = false;
             }
             // Last case: input and output must have the same value, else
-            // shape are not compatible and an exception is XTENSOR_THROW)(
+            // shape are not compatible and an exception is thrown.
             else if (static_cast<value_type>(input[input_index - 1]) != output[output_index - 1])
             {
                 XTENSOR_THROW(broadcast_error(output, input));
