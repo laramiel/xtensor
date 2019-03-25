@@ -536,8 +536,9 @@ namespace xt
                 // check if the typestring matches the given one
                 if (check_type && m_typestring != detail::build_typestring<T>())
                 {
-                    XTENSOR_THROW(std::runtime_error("Cast error: formats not matching "s + m_typestring )+
-                                             " vs "s + detail::build_typestring<T>());
+                    XTENSOR_THROW(
+                    std::runtime_error("Cast error: formats not matching "s + m_typestring +
+                                             " vs "s + detail::build_typestring<T>()));
                 }
 
                 if ((L == layout_type::column_major && !m_fortran_order) ||
