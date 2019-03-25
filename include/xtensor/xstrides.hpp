@@ -89,7 +89,7 @@ namespace xt
     struct check_strides_overlap;
 
     /**********************************
-     * check bounds, without XTENSOR_THROW(ng )*
+     * check bounds, without throwing *
      **********************************/
 
     template <class S, class... Args>
