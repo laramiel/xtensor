@@ -96,7 +96,6 @@ inline void xtensor_abort(const char* msg) {
 
 #define XTENSOR_THROW(exception) xtensor_abort(__FILE__)
 
-
 #endif
 
 
