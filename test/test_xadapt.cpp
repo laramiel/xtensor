@@ -45,11 +45,11 @@ namespace xt
     TEST(xarray_adaptor, pointer_no_ownership)
     {
         size_t size = 4;
-        int* data = new int[size];
+        std::unique_ptr<int[]> data(new int[size]);
         using shape_type = std::vector<vec_type::size_type>;
         shape_type s({2, 2});
 
-        auto a1 = adapt(data, size, no_ownership(), s);
+        auto a1 = adapt(data.get(), size, no_ownership(), s);
         a1(0, 1) = 1;
         EXPECT_EQ(1, data[std::size_t(a1.strides()[1])]);
 
@@ -57,8 +57,6 @@ namespace xt
         auto a2 = adapt(data, size, no_ownership(), s, str);
         a2(1, 0) = 1;
         EXPECT_EQ(1, data[2]);
-
-        delete[] data;
     }
 
     TEST(xarray_adaptor, pointer_acquire_ownership)
@@ -141,16 +139,14 @@ namespace xt
     TEST(xarray_adaptor, ptr_adapt_layout)
     {
         size_t size = 4;
-        int* data = new int[size];
+        std::unique_ptr<int[]> data(new int[size]);
 
         using shape_type = std::vector<vec_type::size_type>;
         shape_type s = { size };
 
-        auto a0 = adapt<layout_type::dynamic>(data, size, no_ownership(), s, layout_type::row_major);
+        auto a0 = adapt<layout_type::dynamic>(data.get(), size, no_ownership(), s, layout_type::row_major);
         a0(3) = 3;
         EXPECT_EQ(3, data[3]);
-
-        delete[] data;
     }
 
     TEST(xtensor_adaptor, adapt)
@@ -190,7 +186,7 @@ namespace xt
     TEST(xtensor_adaptor, pointer_no_ownership)
     {
         size_t size = 4;
-        int* data = new int[size];
+        std::unique_ptr<int[]> data(new int[size]);
 
         auto a0 = adapt(data, size, no_ownership());
         a0(3) = 3;
@@ -207,14 +203,12 @@ namespace xt
         auto a2 = adapt(data, size, no_ownership(), s, str);
         a2(1, 0) = 1;
         EXPECT_EQ(1, data[2]);
-
-        delete[] data;
     }
 
     TEST(xtensor_adaptor, pointer_const_no_ownership)
     {
         size_t size = 4;
-        int* data = new int[size];
+        std::unique_ptr<int[]> data(new int[size]);
         const int* const_data = data;
 
         auto a0 = adapt(data, size, no_ownership());
@@ -229,8 +223,6 @@ namespace xt
         auto a1_view = adapt(data, size, no_ownership(), s);
         a1(0, 1) = 1;
         EXPECT_EQ(1, a1_view(0, 1));
-
-        delete[] data;
     }
 
     TEST(xtensor_adaptor, pointer_acquire_ownership)
@@ -360,7 +352,7 @@ namespace xt
     TEST(xtensor_adaptor, ptr_adapt_layout)
     {
         size_t size = 4;
-        int* data = new int[size];
+        std::unique_ptr<int[]> data(new int[size]);
 
         using shape_type = std::array<vec_type::size_type, 1>;
         shape_type s = { size };
@@ -368,8 +360,6 @@ namespace xt
         auto a0 = adapt<layout_type::dynamic>(data, size, no_ownership(), s, layout_type::column_major);
         a0(3) = 3;
         EXPECT_EQ(3, data[3]);
-
-        delete[] data;
     }
 
     TEST(xarray_adaptor, short_syntax)
