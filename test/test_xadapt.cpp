@@ -54,7 +54,7 @@ namespace xt
         EXPECT_EQ(1, data[std::size_t(a1.strides()[1])]);
 
         shape_type str({2, 1});
-        auto a2 = adapt(data, size, no_ownership(), s, str);
+        auto a2 = adapt(data.get(), size, no_ownership(), s, str);
         a2(1, 0) = 1;
         EXPECT_EQ(1, data[2]);
     }
@@ -188,19 +188,19 @@ namespace xt
         size_t size = 4;
         std::unique_ptr<int[]> data(new int[size]);
 
-        auto a0 = adapt(data, size, no_ownership());
+        auto a0 = adapt(data.get(), size, no_ownership());
         a0(3) = 3;
         EXPECT_EQ(3, data[3]);
 
         using shape_type = std::array<vec_type::size_type, 2>;
         shape_type s = {2, 2};
 
-        auto a1 = adapt(data, size, no_ownership(), s);
+        auto a1 = adapt(data.get(), size, no_ownership(), s);
         a1(0, 1) = 1;
         EXPECT_EQ(1, data[a1.strides()[1]]);
 
         shape_type str = {2, 1};
-        auto a2 = adapt(data, size, no_ownership(), s, str);
+        auto a2 = adapt(data.get(), size, no_ownership(), s, str);
         a2(1, 0) = 1;
         EXPECT_EQ(1, data[2]);
     }
@@ -209,9 +209,9 @@ namespace xt
     {
         size_t size = 4;
         std::unique_ptr<int[]> data(new int[size]);
-        const int* const_data = data;
+        const int* const_data = data.get();
 
-        auto a0 = adapt(data, size, no_ownership());
+        auto a0 = adapt(data.get(), size, no_ownership());
         auto a0_view = adapt(const_data, size, no_ownership());
         a0(3) = 3;
         EXPECT_EQ(3, a0_view[3]);
@@ -219,8 +219,8 @@ namespace xt
         using shape_type = std::array<vec_type::size_type, 2>;
         shape_type s = {2, 2};
 
-        auto a1 = adapt(data, size, no_ownership(), s);
-        auto a1_view = adapt(data, size, no_ownership(), s);
+        auto a1 = adapt(data.get(), size, no_ownership(), s);
+        auto a1_view = adapt(data.get(), size, no_ownership(), s);
         a1(0, 1) = 1;
         EXPECT_EQ(1, a1_view(0, 1));
     }
@@ -357,7 +357,7 @@ namespace xt
         using shape_type = std::array<vec_type::size_type, 1>;
         shape_type s = { size };
 
-        auto a0 = adapt<layout_type::dynamic>(data, size, no_ownership(), s, layout_type::column_major);
+        auto a0 = adapt<layout_type::dynamic>(data.get(), size, no_ownership(), s, layout_type::column_major);
         a0(3) = 3;
         EXPECT_EQ(3, data[3]);
     }
