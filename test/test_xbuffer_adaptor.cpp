@@ -99,68 +99,60 @@ namespace xt
     TEST(xbuffer_adaptor, no_owner_copy)
     {
         size_t size = 100;
-        double* data = new double[size];
-        buffer_adaptor adapt1(data, size);
+        std::unique_ptr<double[]> data(new double[size]);
+        buffer_adaptor adapt1(data.get(), size);
 
         buffer_adaptor adapt2(adapt1);
         EXPECT_EQ(adapt1.size(), adapt2.size());
         EXPECT_EQ(adapt1.data(), adapt2.data());
-        delete[] data;
     }
 
     TEST(xbuffer_adaptor, no_owner_move)
     {
         size_t size = 100;
-        double* data = new double[size];
-        buffer_adaptor adapt1(data, size);
+        std::unique_ptr<double[]> data(new double[size]);
+        buffer_adaptor adapt1(data.get(), size);
 
         buffer_adaptor adapt2(std::move(adapt1));
         EXPECT_EQ(adapt1.size(), adapt2.size());
         EXPECT_EQ(adapt1.data(), adapt2.data());
-        delete[] data;
     }
 
     TEST(xbuffer_adaptor, no_owner_copy_assign)
     {
         size_t size1 = 100;
-        double* data1 = new double[size1];
-        buffer_adaptor adapt1(data1, size1);
+        std::unique_ptr<double[]> data1(new double[size1]);
+        buffer_adaptor adapt1(data1.get(), size1);
 
         size_t size2 = 200;
-        double* data2 = new double[size2];
-        buffer_adaptor adapt2(data2, size2);
+        std::unique_ptr<double[]> data2(new double[size2]);
+        buffer_adaptor adapt2(data2.get(), size2);
 
         adapt1 = adapt2;
         EXPECT_EQ(adapt1.size(), adapt2.size());
         EXPECT_EQ(adapt1.data(), adapt2.data());
-
-        delete[] data2;
-        delete[] data1;
     }
 
     TEST(xbuffer_adaptor, no_owner_move_assign)
     {
         size_t size1 = 100;
-        double* data1 = new double[size1];
-        buffer_adaptor adapt1(data1, size1);
+        std::unique_ptr<double[]> data1(new double[size1]);
+        buffer_adaptor adapt1(data1.get(), size1);
 
         size_t size2 = 200;
-        double* data2 = new double[size2];
-        buffer_adaptor adapt2(data2, size2);
+        std::unique_ptr<double[]> data2(new double[size2]);
+        buffer_adaptor adapt2(data2.get(), size2);
 
         adapt1 = std::move(adapt2);
         EXPECT_EQ(adapt1.size(), adapt2.size());
         EXPECT_EQ(adapt1.data(), adapt2.data());
-
-        delete[] data2;
-        delete[] data1;
     }
 
     TEST(xbuffer_adaptor, no_owner_resize)
     {
         size_t size1 = 100;
-        double* data1 = new double[size1];
-        buffer_adaptor adapt(data1, size1);
+        std::unique_ptr<double[]> data1(new double[size1]);
+        buffer_adaptor adapt(data1.get(), size1);
 
         size_t size2 = 50;
         XT_EXPECT_THROW(adapt.resize(size2), std::runtime_error);
@@ -170,14 +162,12 @@ namespace xt
     TEST(xbuffer_adaptor, no_owner_iterating)
     {
         size_t size = 100;
-        double* data = new double[size];
-        buffer_adaptor adapt(data, size);
+        std::unique_ptr<double[]> data(new double[size]);
+        buffer_adaptor adapt(data.get(), size);
 
         std::fill(adapt.begin(), adapt.end(), 1.2);
         EXPECT_EQ(data[0], 1.2);
         EXPECT_EQ(data[size / 2], 1.2);
         EXPECT_EQ(data[size - 1], 1.2);
-
-        delete[] data;
     }
 }
