@@ -79,8 +79,8 @@ namespace xt
         xt::xarray<int> a = {{1, 2, 3}, {4, 5, 6}};
         XT_EXPECT_THROW(xt::sum(a, {1, 0}), std::runtime_error);
         XT_EXPECT_THROW(xt::sum(a, {0, 2}), std::runtime_error);
-        XT_EXPECT_THROW(xt::sum(a, {1, 0}, evaluation_strategy::immediate()), std::runtime_error);
-        XT_EXPECT_THROW(xt::sum(a, {0, 2}, evaluation_strategy::immediate()), std::runtime_error);
+        XT_EXPECT_THROW(xt::sum(a, {1, 0}, evaluation_strategy::immediate), std::runtime_error);
+        XT_EXPECT_THROW(xt::sum(a, {0, 2}, evaluation_strategy::immediate), std::runtime_error);
     }
 
     TEST(xreducer, shape)
