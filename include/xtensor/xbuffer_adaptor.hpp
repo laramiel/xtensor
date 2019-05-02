@@ -928,7 +928,7 @@ namespace xt
     {
         if (m_size != size)
         {
-            throw std::runtime_error("xiterator_adaptor not resizable");
+            XTENSOR_THROW(std::runtime_error("xiterator_adaptor not resizable"));
         }
     }
 
