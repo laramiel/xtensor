@@ -66,17 +66,6 @@ namespace xt
         }
 
         template <class D>
-        inline void from_json_assign_impl(D& dest, const nlohmann::json& j) {
-            dest = j;
-        }
-        inline void from_json_assign_impl(std::string& dest, const nlohmann::json& j) {
-            // When using nlohmann::json, std::string assignment can be ambiguous,
-            // so overload resolution will find this function and use assign()
-            // rather than operator=
-            dest.assign(j);
-        }
-
-        template <class D>
         inline void from_json_impl(const nlohmann::json& j, xexpression<D>& e, xstrided_slice_vector& slices)
         {
             auto view = strided_view(e.derived_cast(), slices);
